@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- 2026 Premium Design System - Light Theme -->
+    <color name="md_theme_light_primary">#5E63FF</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#E8E9FF</color>
+    <color name="md_theme_light_secondary">#00D9C8</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_background">#FAFBFF</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_surfaceVariant">#F5F6FA</color>
+    <color name="md_theme_light_error">#FF5757</color>
+
+    <!-- 2026 Premium Design System - Dark Theme -->
+    <color name="md_theme_dark_primary">#7C81FF</color>
+    <color name="md_theme_dark_onPrimary">#000000</color>
+    <color name="md_theme_dark_primaryContainer">#2A2F5F</color>
+    <color name="md_theme_dark_secondary">#00FBE8</color>
+    <color name="md_theme_dark_onSecondary">#001A17</color>
+    <color name="md_theme_dark_background">#0A0E1A</color>
+    <color name="md_theme_dark_surface">#13182B</color>
+    <color name="md_theme_dark_surfaceVariant">#1A2038</color>
+    <color name="md_theme_dark_error">#FF6B6B</color>
+
+    <!-- Alarm Ringing Premium Colors -->
+    <color name="alarm_gradient_start">#FF6B9D</color>
+    <color name="alarm_gradient_end">#FFC371</color>
+    <color name="alarm_dismiss_color">#FF5757</color>
+    <color name="alarm_snooze_color">#5E63FF</color>
+
+    <!-- Glassmorphism Effects -->
+    <color name="glass_overlay">#26FFFFFF</color>
+    <color name="glass_overlay_dark">#1AFFFFFF</color>
+
+    <!-- Semantic Colors -->
+    <color name="success">#00D9B4</color>
+    <color name="warning">#FFB74D</color>
+    <color name="info">#5E63FF</color>
+
+    <!-- Neutral Shades -->
+    <color name="neutral_50">#FAFBFF</color>
+    <color name="neutral_100">#F5F6FA</color>
+    <color name="neutral_200">#E8EAEF</color>
+    <color name="neutral_300">#D1D5DB</color>
+    <color name="neutral_400">#9CA3AF</color>
+    <color name="neutral_500">#6B7280</color>
+    <color name="neutral_600">#4B5563</color>
+    <color name="neutral_700">#374151</color>
+    <color name="neutral_800">#1F2937</color>
+    <color name="neutral_900">#111827</color>
+</resources>
+

@@ -1,0 +1,83 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">DevLife OS</string>
+
+    <!-- Navigation -->
+    <string name="alarms">Alarms</string>
+    <string name="world_clock">World Clock</string>
+    <string name="tickets">Tickets</string>
+    <string name="holidays">Holidays</string>
+
+    <!-- Alarms -->
+    <string name="add_alarm">Add Alarm</string>
+    <string name="delete_alarm">Delete Alarm</string>
+    <string name="no_alarms">No alarms set</string>
+    <string name="alarm">Alarm</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="snooze">Snooze</string>
+    <string name="repeat_once">Once</string>
+    <string name="repeat_daily">Daily</string>
+    <string name="repeat_weekdays">Weekdays</string>
+    <string name="alarm_in">Alarm in %s</string>
+    <string name="hours_minutes">%1$d hours %2$d minutes</string>
+    <string name="hour_minutes">%1$d hour %2$d minutes</string>
+    <string name="hours_minute">%1$d hours %2$d minute</string>
+    <string name="hour_minute">%1$d hour %2$d minute</string>
+    <string name="hours_only">%d hours</string>
+    <string name="hour_only">%d hour</string>
+    <string name="minutes_only">%d minutes</string>
+    <string name="minute_only">%d minute</string>
+    <string name="less_than_minute">Less than a minute</string>
+    <string name="tap_circle_to_snooze_5_min">Tap circle to snooze (5 min)</string>
+    <string name="swipe_right_to_dismiss">Swipe right to dismiss</string>
+
+    <!-- Tickets -->
+    <string name="add_ticket">Add Ticket</string>
+    <string name="no_tickets">No tickets</string>
+    <string name="ticket_id">Ticket ID</string>
+    <string name="title">Title</string>
+    <string name="story_points">Story Points</string>
+    <string name="status">Status</string>
+    <string name="description">Description</string>
+    <string name="edit_ticket">Edit Ticket</string>
+    <string name="delete_ticket">Delete Ticket</string>
+    <string name="change_status">Change Status</string>
+    <string name="add_jira_ticket">Add Jira Ticket</string>
+    <string name="notes">Notes</string>
+    <string name="write_your_notes_here">Write your notes here…</string>
+
+    <!-- Status -->
+    <string name="status_todo">To Do</string>
+    <string name="status_in_progress">In Progress</string>
+    <string name="status_in_review">In Review</string>
+    <string name="status_done">Done</string>
+    <string name="status_blocked">Blocked</string>
+
+    <!-- Holidays -->
+    <string name="no_holidays">No holidays loaded</string>
+    <string name="sync_holidays">Sync Holidays</string>
+    <string name="scanning_calendar_image">Scanning calendar image…</string>
+
+    <!-- Drawing -->
+    <string name="pen">Pen</string>
+    <string name="eraser">Eraser</string>
+    <string name="clear">Clear</string>
+    <string name="undo">Undo</string>
+    <string name="save">Save</string>
+
+    <!-- Common -->
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="search">Search</string>
+    <string name="tap_to_create_your_first_alarm">Tap + to create your first alarm</string>
+    <string name="new_alarm">New Alarm</string>
+    <string name="no_alarms_set">No alarms set</string>
+    <string name="add_world_clock">Add World Clock</string>
+    <string name="tap_sync_to_fetch_holidays">Tap sync to fetch holidays</string>
+    <string name="Holidays">Holidays</string>
+    <string name="india_government_holidays_for_2026">India government holidays for 2026</string>
+    <string name="no_holidays_synced">No holidays synced</string>
+</resources>
+

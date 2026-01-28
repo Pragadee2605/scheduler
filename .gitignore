@@ -1,0 +1,28 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Built application files
+*.apk
+*.aab
+*.ap_
+
+# Java class files
+*.class
+
+# Jar files
+*.jar
+
+# Keystore files
+*.keystore
+*.jks
+
+# Log files
+*.log
