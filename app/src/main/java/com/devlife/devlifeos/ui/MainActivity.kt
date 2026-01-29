@@ -204,6 +204,10 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(AlarmListFragment())
                     true
                 }
+                R.id.nav_time_converter -> {
+                    loadFragment(com.devlife.devlifeos.ui.timeconverter.TimeConverterFragment())
+                    true
+                }
                 R.id.nav_world_clock -> {
                     loadFragment(com.devlife.devlifeos.ui.worldclock.WorldClockFragment())
                     true

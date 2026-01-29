@@ -57,6 +57,7 @@
                 tools:text="Next alarm in 7 hours 21 minutes"
                 tools:visibility="visible" />
 
+
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

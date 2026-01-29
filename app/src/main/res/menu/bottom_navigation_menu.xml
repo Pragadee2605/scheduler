@@ -5,6 +5,10 @@
         android:icon="@android:drawable/ic_lock_idle_alarm"
         android:title="@string/alarms" />
     <item
+        android:id="@+id/nav_time_converter"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="Converter" />
+    <item
         android:id="@+id/nav_world_clock"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="@string/world_clock" />
