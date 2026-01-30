@@ -86,8 +86,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:thumbTint="?attr/colorPrimary"
-            app:trackTint="?attr/colorSurfaceVariant" />
+            app:thumbTint="@color/switch_thumb_color"
+            app:trackTint="@color/switch_track_color" />
 
         <!-- Divider -->
         <View

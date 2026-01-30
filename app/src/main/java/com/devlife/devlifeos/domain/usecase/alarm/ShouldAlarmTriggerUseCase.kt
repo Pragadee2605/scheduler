@@ -44,4 +44,40 @@ class ShouldAlarmTriggerUseCase(
             }
         }
     }
+
+    /**
+     * Find the next valid day for an alarm to trigger
+     * Returns null if no valid day can be found
+     */
+    suspend fun findNextValidDay(alarm: Alarm, startCalendar: Calendar = Calendar.getInstance()): Calendar? {
+        if (!alarm.isEnabled) return null
+
+        val calendar = startCalendar.clone() as Calendar
+        calendar.set(Calendar.HOUR_OF_DAY, alarm.hour)
+        calendar.set(Calendar.MINUTE, alarm.minute)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        // If the time has passed today, start from tomorrow
+        if (calendar.timeInMillis <= System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        // For ONCE alarms, don't search further
+        if (alarm.repeatType == RepeatType.ONCE) {
+            return if (invoke(alarm, calendar)) calendar else null
+        }
+
+        // Search for next valid day (limit to 90 days to avoid infinite loops)
+        var attempts = 0
+        while (attempts < 90) {
+            if (invoke(alarm, calendar)) {
+                return calendar
+            }
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+            attempts++
+        }
+
+        return null // Could not find valid day in next 90 days
+    }
 }

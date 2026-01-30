@@ -17,9 +17,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.lifecycleScope
 import com.devlife.devlifeos.R
+import com.devlife.devlifeos.data.local.DevLifeDatabase
+import com.devlife.devlifeos.data.local.entity.RepeatType
+import com.devlife.devlifeos.data.repository.AlarmRepository
+import com.devlife.devlifeos.domain.alarm.AlarmSchedulerImpl
 import com.devlife.devlifeos.receiver.AlarmReceiver
 import com.devlife.devlifeos.service.AlarmService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -285,8 +292,39 @@ class AlarmRingingActivity : AppCompatActivity() {
     }
 
     private fun dismissAlarm() {
+        // Reschedule or disable the alarm based on repeat type
+        if (alarmId != -1L) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val database = DevLifeDatabase.getDatabase(applicationContext)
+                    val alarmRepository = AlarmRepository(database.alarmDao())
+                    val alarm = alarmRepository.getAlarmById(alarmId)
+
+                    if (alarm != null) {
+                        when (alarm.repeatType) {
+                            RepeatType.ONCE -> {
+                                // ONCE alarms should be disabled after ringing
+                                alarmRepository.setAlarmEnabled(alarmId, false)
+                            }
+                            RepeatType.DAILY,
+                            RepeatType.WEEKDAYS -> {
+                                // Reschedule repeating alarms for next occurrence
+                                val alarmScheduler = AlarmSchedulerImpl(
+                                    applicationContext,
+                                    alarmRepository
+                                )
+                                alarmScheduler.scheduleAlarm(alarm)
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
         // Stop the alarm service
-        val serviceIntent = android.content.Intent(this, AlarmService::class.java)
+        val serviceIntent = Intent(this, AlarmService::class.java)
         stopService(serviceIntent)
         finish()
     }

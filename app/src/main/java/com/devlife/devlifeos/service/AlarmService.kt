@@ -9,8 +9,6 @@ import android.os.*
 import androidx.core.app.NotificationCompat
 import com.devlife.devlifeos.R
 import com.devlife.devlifeos.data.local.DevLifeDatabase
-import com.devlife.devlifeos.data.repository.AlarmRepository
-import com.devlife.devlifeos.domain.alarm.AlarmSchedulerImpl
 import com.devlife.devlifeos.ui.alarm.AlarmRingingActivity
 import kotlinx.coroutines.*
 import androidx.core.net.toUri
@@ -100,10 +98,8 @@ class AlarmService : Service() {
                     startVibration()
                 }
 
-                // Reschedule alarm for next occurrence
-                val alarmRepository = AlarmRepository(database.alarmDao())
-                val alarmScheduler = AlarmSchedulerImpl(applicationContext, alarmRepository)
-                alarmScheduler.scheduleAlarm(alarm)
+                // Note: Rescheduling is now handled in AlarmRingingActivity when user dismisses
+                // This prevents conflicts with snooze and ensures ONCE alarms don't repeat
 
             } catch (e: Exception) {
                 e.printStackTrace()

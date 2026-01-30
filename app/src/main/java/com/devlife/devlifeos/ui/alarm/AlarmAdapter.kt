@@ -56,12 +56,18 @@ class AlarmAdapter(
             // Set repeat info
             binding.tvRepeat.text = getRepeatText(alarm)
 
-
-            // Set enabled switch
+            // Set enabled switch - FIXED: Remove listener first to prevent triggering wrong alarm
+            binding.switchEnabled.setOnCheckedChangeListener(null)
             binding.switchEnabled.isChecked = alarm.isEnabled
             binding.switchEnabled.setOnCheckedChangeListener { _, isChecked ->
-                onToggle(alarm, isChecked)
+                // Only trigger if user actually changed it (not programmatic change)
+                if (alarm.isEnabled != isChecked) {
+                    onToggle(alarm, isChecked)
+                }
             }
+
+            // Update UI based on enabled state - Show clear visual feedback
+            updateUIForEnabledState(alarm.isEnabled)
 
             // Delete button
             binding.btnDelete.setOnClickListener {
@@ -72,6 +78,18 @@ class AlarmAdapter(
             binding.root.setOnClickListener {
                 onEdit(alarm)
             }
+        }
+
+        private fun updateUIForEnabledState(isEnabled: Boolean) {
+            // Visual feedback: Dim the alarm when disabled
+            val alpha = if (isEnabled) 1.0f else 0.4f
+            binding.tvTime.alpha = alpha
+            binding.tvAmPm.alpha = alpha
+            binding.tvLabel.alpha = alpha
+            binding.tvRepeat.alpha = alpha
+
+            // Optional: Change card background or add visual indicator
+            binding.root.alpha = if (isEnabled) 1.0f else 0.7f
         }
 
         private fun getRepeatText(alarm: Alarm): String {

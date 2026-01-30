@@ -47,9 +47,18 @@ class AlarmReceiver : BroadcastReceiver() {
                     }
                     context.startForegroundService(serviceIntent)
                 } else {
-                    // Reschedule for next occurrence
+                    // Alarm should not trigger (weekend/holiday)
+                    // Reschedule for next valid occurrence
                     val alarmScheduler = AlarmSchedulerImpl(context, alarmRepository)
-                    alarmScheduler.scheduleAlarm(alarm)
+
+                    // Force reschedule by temporarily moving time forward
+                    val updatedAlarm = alarm.copy(
+                        updatedAt = System.currentTimeMillis()
+                    )
+                    alarmRepository.updateAlarm(updatedAlarm)
+
+                    // Schedule for next occurrence (will find next valid day)
+                    alarmScheduler.scheduleAlarm(updatedAlarm)
                 }
             } finally {
                 pendingResult.finish()
