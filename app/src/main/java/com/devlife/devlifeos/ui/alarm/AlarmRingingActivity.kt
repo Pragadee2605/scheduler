@@ -4,8 +4,10 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -56,6 +58,14 @@ class AlarmRingingActivity : AppCompatActivity() {
     private var isDragging = false
     private val dismissThreshold = 0.7f // 70% swipe to dismiss
 
+    private val timeoutReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == AlarmService.ACTION_ALARM_TIMEOUT) {
+                dismissAlarm()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm_ringing)
@@ -76,6 +86,30 @@ class AlarmRingingActivity : AppCompatActivity() {
         setupUI()
         setupGestures()
         startPulseAnimation()
+
+        // Register receiver for auto-dismiss timeout
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(
+                timeoutReceiver,
+                IntentFilter(AlarmService.ACTION_ALARM_TIMEOUT),
+                Context.RECEIVER_NOT_EXPORTED
+            )
+        } else {
+            @Suppress("UnspecifiedRegisterReceiverFlag")
+            registerReceiver(
+                timeoutReceiver,
+                IntentFilter(AlarmService.ACTION_ALARM_TIMEOUT)
+            )
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            unregisterReceiver(timeoutReceiver)
+        } catch (e: Exception) {
+            // Already unregistered
+        }
     }
 
     private fun setupWindowFlags() {

@@ -22,21 +22,25 @@ class AlarmService : Service() {
     private var vibrator: Vibrator? = null
     private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private var currentAlarmId: Long = -1
+    private var playCount = 0
+    private val MAX_PLAYS = 2
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val alarmId = intent?.getLongExtra(EXTRA_ALARM_ID, -1) ?: -1
+        if (alarmId != -1L) {
+            currentAlarmId = alarmId
+        }
+
         // Handle dismiss action from notification
         if (intent?.action == ACTION_DISMISS_ALARM) {
-            stopAlarm()
+            handleAutoDismiss()
             return START_NOT_STICKY
         }
 
-        val alarmId = intent?.getLongExtra(EXTRA_ALARM_ID, -1) ?: -1
-        if (alarmId == -1L) {
+        if (currentAlarmId == -1L) {
             stopSelf()
             return START_NOT_STICKY
         }
-
-        currentAlarmId = alarmId
 
         // Create notification channel
         createNotificationChannel()
@@ -76,13 +80,25 @@ class AlarmService : Service() {
                 // Initialize MediaPlayer
                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(applicationContext, soundUri)
-                    isLooping = true
+                    isLooping = false
                     setAudioAttributes(
                         AudioAttributes.Builder()
                             .setUsage(AudioAttributes.USAGE_ALARM)
                             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                             .build()
                     )
+
+                    setOnCompletionListener { mp ->
+                        playCount++
+                        if (playCount < MAX_PLAYS) {
+                            mp.start()
+                        } else {
+                            // Auto-dismiss after MAX_PLAYS
+                            serviceScope.launch(Dispatchers.Main) {
+                                handleAutoDismiss()
+                            }
+                        }
+                    }
 
                     // Start with volume 0 for fade-in
                     setVolume(0f, 0f)
@@ -156,6 +172,17 @@ class AlarmService : Service() {
         stopSelf()
     }
 
+    private fun handleAutoDismiss() {
+        // Notify activity to finish and reschedule
+        val intent = Intent(ACTION_ALARM_TIMEOUT).apply {
+            putExtra(EXTRA_ALARM_ID, currentAlarmId)
+            setPackage(packageName)
+        }
+        sendBroadcast(intent)
+        
+        stopAlarm()
+    }
+
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -224,6 +251,7 @@ class AlarmService : Service() {
     companion object {
         const val EXTRA_ALARM_ID = "extra_alarm_id"
         const val ACTION_DISMISS_ALARM = "com.devlife.devlifeos.ACTION_DISMISS_ALARM"
+        const val ACTION_ALARM_TIMEOUT = "com.devlife.devlifeos.ACTION_ALARM_TIMEOUT"
         private const val NOTIFICATION_ID = 1001
         private const val CHANNEL_ID = "alarm_channel"
     }

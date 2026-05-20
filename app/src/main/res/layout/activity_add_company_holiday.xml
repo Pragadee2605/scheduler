@@ -34,30 +34,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add holidays manually or upload calendar image"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
             <!-- Manual Entry Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:text="Manual Entry"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <!-- Holiday Name -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:hint="Holiday Name"
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text">
@@ -74,7 +74,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:hint="Date"
                 app:boxBackgroundMode="outline"
                 app:endIconDrawable="@android:drawable/ic_menu_my_calendar"
@@ -94,7 +94,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <!-- Select Date Button (Left) -->
@@ -105,8 +105,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Select Date"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="10dp"
                     app:backgroundTint="@color/md_theme_light_primary"
                     android:textAllCaps="false"
                     app:cornerRadius="12dp" />
@@ -120,7 +120,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     android:text="Add This Holiday"
-                    android:paddingHorizontal="24dp"
+                    android:paddingHorizontal="16dp"
                     android:paddingVertical="10dp"
                     app:backgroundTint="@color/md_theme_light_primary"
                     android:textAllCaps="false"
@@ -132,156 +132,123 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"
                 android:background="?attr/colorOutlineVariant" />
 
-            <!-- Upload Calendar Section - Advanced Modern Design -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Upload Calendar Section - Compact Design -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
+                android:orientation="vertical">
 
+                <!-- Header with AI Badge -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Smart Upload"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <!-- AI Badge -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✨ AI"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp"
+                        android:background="@drawable/bg_ai_badge"
+                        android:elevation="0dp" />
+                </LinearLayout>
+
+                <!-- Compact Upload Zone -->
+                <LinearLayout
+                    android:id="@+id/uploadZone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="24dp">
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_upload_zone">
 
-                    <!-- Header with AI Badge -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <!-- Upload Icon (Smaller) -->
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_upload_file"
+                        android:contentDescription="Upload calendar icon"
+                        app:tint="?attr/colorPrimary"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
+                        android:text="Upload Calendar Image"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Smart Upload"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <!-- AI Badge -->
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="0dp"
-                            app:strokeWidth="0dp"
-                            app:cardBackgroundColor="?attr/colorPrimaryContainer">
-
-
-                        </com.google.android.material.card.MaterialCardView>
-                    </LinearLayout>
-
-                    <!-- Drag & Drop Zone -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:strokeWidth="2dp"
-                        app:strokeColor="?attr/colorPrimary"
-                        app:cardBackgroundColor="?attr/colorSurfaceContainer">
+                        android:layout_marginTop="2dp"
+                        android:text="Click to browse files"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="12sp"
+                        android:gravity="center" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="24dp"
-                            android:gravity="center"
-                            android:background="@drawable/bg_dashed_border">
-
-                            <!-- Large Upload Icon -->
-                            <ImageView
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:src="@drawable/ic_upload_file"
-                                android:tint="?attr/colorPrimary"
-                                android:layout_marginBottom="16dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Drop your calendar here"
-                                android:textColor="?attr/colorOnSurface"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="or click to browse"
-                                android:textColor="?attr/colorOnSurfaceVariant"
-                                android:textSize="13sp"
-                                android:gravity="center" />
-
-                            <!-- Advanced Upload Button with Gradient -->
-                            <FrameLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp">
-
-                                <!-- Gradient Background -->
-                                <View
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="60dp"
-                                    android:background="@drawable/bg_upload_button_gradient" />
-
-                                <!-- Button (Transparent background) -->
-                                <com.google.android.material.button.MaterialButton
-                                    android:id="@+id/btnUploadCalendar"
-                                    style="@style/Widget.Material3.Button.TextButton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="📸 Upload  Image"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#FFFFFF"
-                                    android:textAllCaps="false"
-                                    app:iconGravity="textStart"
-                                    app:cornerRadius="20dp"
-                                    app:rippleColor="#80FFFFFF"
-                                    android:letterSpacing="0.02" />
-                            </FrameLayout>
-
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                    <!-- Compact Upload Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnUploadCalendar"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="📸 Choose Image"
+                        android:textSize="14sp"
+                        android:textAllCaps="false"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="8dp"
+                        app:cornerRadius="20dp" />
 
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
 
             <!-- Processing Status -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ProgressBar
                     android:id="@+id/progressBar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="8dp"
                     android:textColor="?attr/colorPrimary"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:visibility="gone" />
             </LinearLayout>
 
