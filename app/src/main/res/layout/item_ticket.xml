@@ -5,17 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginTop="12dp"
+    android:layout_marginTop="6dp"
     android:layout_marginEnd="16dp"
-    android:background="@drawable/bg_modern_card"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="3dp"
-    app:strokeWidth="0dp">
+    android:layout_marginBottom="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorOnSurfaceVariant">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="12dp">
 
         <!-- Ticket ID Badge -->
         <TextView
@@ -23,12 +27,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_glass_card"
-            android:paddingStart="12dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="6dp"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="13sp"
+            android:paddingStart="8dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="3dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="11sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,14 +44,14 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="10sp"
             app:chipBackgroundColor="?attr/colorPrimaryContainer"
-            app:chipIconSize="16dp"
-            app:chipMinHeight="32dp"
+            app:chipIconSize="12dp"
+            app:chipMinHeight="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:textEndPadding="8dp"
-            app:textStartPadding="8dp"
+            app:textEndPadding="6dp"
+            app:textStartPadding="6dp"
             tools:text="In Progress" />
 
         <!-- Title -->
@@ -55,12 +59,12 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="17sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/cardStoryPoints"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,10 +74,10 @@
         <!-- Story Points Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardStoryPoints"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            app:cardBackgroundColor="?attr/colorSecondaryContainer"
-            app:cardCornerRadius="14dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvTitle">
@@ -88,8 +92,8 @@
                     android:id="@+id/tvStoryPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="5" />
 
@@ -97,74 +101,8 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Divider -->
-        <View
-            android:id="@+id/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:alpha="0.3"
-            android:background="?attr/colorSurfaceVariant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-        <!-- Action Buttons Row -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider">
-
-            <!-- Workspace Icon -->
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:tint="?attr/colorPrimary"
-                tools:ignore="UseAppTint" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="Tap to open workspace"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <!-- Edit Button -->
-            <ImageButton
-                android:id="@+id/btnEdit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/edit_ticket"
-                android:padding="8dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:tint="?attr/colorOnSurfaceVariant"
-                tools:ignore="UseAppTint" />
-
-            <!-- Delete Button -->
-            <ImageButton
-                android:id="@+id/btnDelete"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/delete_ticket"
-                android:padding="8dp"
-                android:src="@android:drawable/ic_menu_delete"
-                android:tint="?attr/colorError"
-                tools:ignore="UseAppTint" />
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
+

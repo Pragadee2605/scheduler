@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.devlife.devlifeos.data.local.DevLifeDatabase
 import com.devlife.devlifeos.data.local.entity.JiraTicket
 import com.devlife.devlifeos.data.local.entity.TicketStatus
@@ -72,6 +74,24 @@ class TicketListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@TicketListFragment.adapter
         }
+
+        // Swipe to delete
+        val swipeHandler = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val ticket = adapter.currentList[position]
+                    viewModel.deleteTicket(ticket)
+                }
+            }
+        }
+        ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.recyclerViewTickets)
     }
 
     private fun observeData() {

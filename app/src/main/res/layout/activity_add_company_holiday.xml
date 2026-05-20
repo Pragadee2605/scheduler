@@ -107,7 +107,7 @@
                     android:text="Select Date"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="10dp"
-                    app:backgroundTint="@color/md_theme_light_primary"
+                    app:backgroundTint="?attr/colorPrimary"
                     android:textAllCaps="false"
                     app:cornerRadius="12dp" />
 
@@ -122,7 +122,7 @@
                     android:text="Add This Holiday"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="10dp"
-                    app:backgroundTint="@color/md_theme_light_primary"
+                    app:backgroundTint="?attr/colorPrimary"
                     android:textAllCaps="false"
                     app:cornerRadius="12dp" />
             </LinearLayout>

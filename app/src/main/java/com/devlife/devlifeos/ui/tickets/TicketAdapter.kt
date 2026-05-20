@@ -58,17 +58,7 @@ class TicketAdapter(
                 showStatusDropdown(view, ticket)
             }
 
-            // Edit button
-            binding.btnEdit.setOnClickListener {
-                onEdit(ticket)
-            }
-
-            // Delete button
-            binding.btnDelete.setOnClickListener {
-                onDelete(ticket)
-            }
-
-            // Click on card to open workspace
+            // Click on card to open workspace (tap to edit)
             binding.root.setOnClickListener {
                 onTicketClick(ticket)
             }

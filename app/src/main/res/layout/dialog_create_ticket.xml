@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/save"
-            android:backgroundTint="@color/md_theme_light_primary"
+            android:backgroundTint="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnCancel" />
 

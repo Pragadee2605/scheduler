@@ -3,7 +3,6 @@ package com.devlife.devlifeos.ui.worldclock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -39,7 +38,6 @@ class WorldClockAdapter(
         private val tvTime: TextView = itemView.findViewById(R.id.tvTime)
         private val tvDate: TextView = itemView.findViewById(R.id.tvDate)
         private val tvTimeDiff: TextView = itemView.findViewById(R.id.tvTimeDiff)
-        private val btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
 
         fun bind(worldClock: WorldClock) {
             tvCityName.text = worldClock.mainCity
@@ -70,10 +68,6 @@ class WorldClockAdapter(
                 tvTime.text = "--:--"
                 tvDate.text = "--"
                 tvTimeDiff.text = ""
-            }
-
-            btnDelete.setOnClickListener {
-                onDeleteClick(worldClock)
             }
         }
     }

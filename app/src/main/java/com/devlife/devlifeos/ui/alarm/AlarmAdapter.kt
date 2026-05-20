@@ -69,10 +69,6 @@ class AlarmAdapter(
             // Update UI based on enabled state - Show clear visual feedback
             updateUIForEnabledState(alarm.isEnabled)
 
-            // Delete button
-            binding.btnDelete.setOnClickListener {
-                onDelete(alarm)
-            }
 
             // Click to edit
             binding.root.setOnClickListener {

@@ -5,101 +5,92 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginTop="12dp"
+    android:layout_marginTop="6dp"
     android:layout_marginEnd="16dp"
-    android:background="@drawable/bg_modern_card"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="3dp"
-    app:strokeWidth="0dp">
+    android:layout_marginBottom="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorOnSurfaceVariant">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp">
 
         <!-- Holiday Icon -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/iconCard"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
 
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@android:drawable/ic_menu_my_calendar"
-                android:tint="?attr/colorPrimary"
+                android:tint="?attr/colorOnSurface"
                 tools:ignore="UseAppTint" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Holiday Name -->
-        <TextView
-            android:id="@+id/tvHolidayName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iconCard"
-            app:layout_constraintTop_toTopOf="@+id/iconCard"
-            tools:text="Independence Day" />
-
-        <!-- Date and Day Info -->
+        <!-- Holiday Details -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iconCard"
-            app:layout_constraintTop_toBottomOf="@+id/tvHolidayName">
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
 
+            <!-- Holiday Name -->
             <TextView
-                android:id="@+id/tvHolidayDate"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvHolidayName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorOnSurfaceVariant"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                tools:text="Aug 15, 2026" />
+                tools:text="Independence Day" />
 
-            <TextView
-                android:id="@+id/tvDayOfWeek"
-                android:layout_width="wrap_content"
+            <!-- Date and Day Info -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp"
-                tools:text="• Saturday" />
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvHolidayDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp"
+                    tools:text="Aug 15, 2026" />
+
+                <TextView
+                    android:id="@+id/tvDayOfWeek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp"
+                    tools:text="• Saturday" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Holiday Type Badge -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            app:cardBackgroundColor="?attr/colorSecondaryContainer"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp"
-            app:layout_constraintStart_toEndOf="@+id/iconCard"
-            app:layout_constraintTop_toBottomOf="@+id/tvHolidayDate">
-
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
+

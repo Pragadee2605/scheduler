@@ -1,273 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_light_background">
+    android:orientation="vertical"
+    android:background="?attr/colorSurface">
 
     <!-- Toolbar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-        android:elevation="0dp"
-        app:elevation="0dp">
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+        app:title="Set Alarm" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
-            app:title="New Alarm"
-            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Time Display Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardTime"
-                android:layout_width="0dp"
+            <!-- Time Picker -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_modern_card"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="24dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <NumberPicker
+                    android:id="@+id/hourPicker"
+                    android:layout_width="70dp"
+                    android:layout_height="140dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="32dp">
+                    android:layout_marginHorizontal="4dp"
+                    android:text=":"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvSelectedTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:letterSpacing="-0.02"
-                        android:text="07:00"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="72sp"
-                        android:textStyle="bold" />
+                <NumberPicker
+                    android:id="@+id/minutePicker"
+                    android:layout_width="70dp"
+                    android:layout_height="140dp" />
 
-                    <TextView
-                        android:id="@+id/tvAmPm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="AM"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                <NumberPicker
+                    android:id="@+id/amPmPicker"
+                    android:layout_width="60dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnSelectTime"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Change Time"
-                        android:textSize="16sp"
-                        app:icon="@android:drawable/ic_menu_recent_history" />
+            </LinearLayout>
 
-                </LinearLayout>
+            <!-- Hidden views for compatibility -->
+            <TextView
+                android:id="@+id/tvSelectedTime"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
 
-            </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/tvAmPm"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
 
-            <!-- Label Input -->
+            <Button
+                android:id="@+id/btnSelectTime"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+
+            <!-- Label -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilLabel"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="Label (optional)"
-                app:boxCornerRadiusBottomEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusTopStart="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardTime"
-                app:startIconDrawable="@android:drawable/ic_menu_edit">
+                android:hint="Label">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLines="1"
-                    android:textSize="16sp" />
+                    android:maxLines="1" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Repeat Section -->
+            <!-- Repeat -->
             <TextView
                 android:id="@+id/tvRepeatLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="16dp"
                 android:text="Repeat"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tilLabel" />
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinnerRepeatType"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_modern_card"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRepeatLabel" />
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_modern_card" />
 
-            <!-- Ringtone Section -->
+            <!-- Sound -->
             <TextView
                 android:id="@+id/tvRingtoneLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:text="Alarm Sound"
+                android:layout_marginTop="16dp"
+                android:text="Sound"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerRepeatType" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSelectRingtone"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:text="Select Custom Ringtone"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                app:cornerRadius="16dp"
-                app:icon="@android:drawable/ic_menu_upload"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRingtoneLabel" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tvSelectedRingtone"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_modern_card"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:text="Default"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSelectRingtone"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change"
+                android:textSize="13sp" />
+
+            <!-- Options -->
+            <LinearLayout
+                android:id="@+id/cardOptions"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Default alarm sound"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnSelectRingtone" />
+                android:orientation="vertical">
 
-            <!-- Auto-disable Options -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardOptions"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/bg_modern_card"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSelectedRingtone"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchAutoDisableWeekends"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:checked="true"
+                    android:paddingVertical="8dp"
+                    android:text="Skip weekends" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Smart Features"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchAutoDisableHolidays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:paddingVertical="8dp"
+                    android:text="Skip holidays" />
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchAutoDisableWeekends"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:checked="true"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="12dp"
-                        android:text="Auto-disable on weekends"
-                        android:textSize="15sp" />
+            </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:alpha="0.2"
-                        android:background="?attr/colorOnSurface" />
+        </LinearLayout>
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchAutoDisableHolidays"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="12dp"
-                        android:text="Auto-disable on holidays"
-                        android:textSize="15sp" />
+    </ScrollView>
 
-                </LinearLayout>
+    <!-- Save Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:text="Save"
+        app:cornerRadius="8dp" />
 
-            </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
 
-            <!-- Save Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSave"
-                android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/md_theme_light_primary"
-                android:text="Save Alarm"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                app:cornerRadius="16dp"
-                app:icon="@android:drawable/ic_menu_save"
-                app:iconGravity="textStart"
-                app:iconSize="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardOptions" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

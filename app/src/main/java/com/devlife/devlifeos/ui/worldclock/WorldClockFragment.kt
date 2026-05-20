@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devlife.devlifeos.R
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -58,18 +58,29 @@ class WorldClockFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = WorldClockAdapter { worldClock ->
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Remove Clock")
-                .setMessage("Remove ${worldClock.countryName} from world clocks?")
-                .setPositiveButton("Remove") { _, _ ->
-                    viewModel.deleteWorldClock(worldClock)
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
+            viewModel.deleteWorldClock(worldClock)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+
+        // Swipe to delete
+        val swipeHandler = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val worldClock = adapter.currentList[position]
+                    viewModel.deleteWorldClock(worldClock)
+                }
+            }
+        }
+        ItemTouchHelper(swipeHandler).attachToRecyclerView(recyclerView)
     }
 
     private fun setupFab() {

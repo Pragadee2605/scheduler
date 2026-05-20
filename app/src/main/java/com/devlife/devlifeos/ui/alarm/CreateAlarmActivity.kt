@@ -1,6 +1,5 @@
 package com.devlife.devlifeos.ui.alarm
 
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,11 +15,11 @@ import com.devlife.devlifeos.data.local.entity.RepeatType
 import com.devlife.devlifeos.data.repository.AlarmRepository
 import com.devlife.devlifeos.databinding.ActivityCreateAlarmBinding
 import com.devlife.devlifeos.domain.alarm.AlarmSchedulerImpl
-import java.util.*
+import java.util.Locale
 
 /**
  * Full-screen Activity for creating or editing an alarm
- * Premium 2026 design with better UX
+ * Modern design with scrollable time pickers
  */
 class CreateAlarmActivity : AppCompatActivity() {
 
@@ -29,6 +28,7 @@ class CreateAlarmActivity : AppCompatActivity() {
 
     private var selectedHour = 7
     private var selectedMinute = 0
+    private var isAm = true
     private var selectedRepeatType = RepeatType.ONCE
     private var selectedRingtoneUri: String = "default"
     private var selectedRingtoneName: String = "Default alarm sound"
@@ -63,6 +63,7 @@ class CreateAlarmActivity : AppCompatActivity() {
         setupViewModel()
         loadIntentData()
         setupToolbar()
+        setupTimePickers()
         setupUI()
     }
 
@@ -78,8 +79,18 @@ class CreateAlarmActivity : AppCompatActivity() {
     private fun loadIntentData() {
         intent?.let { intent ->
             editingAlarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1).takeIf { it != -1L }
-            selectedHour = intent.getIntExtra(EXTRA_HOUR, 7)
+            val hour24 = intent.getIntExtra(EXTRA_HOUR, 7)
             selectedMinute = intent.getIntExtra(EXTRA_MINUTE, 0)
+
+            // Convert 24-hour to 12-hour format
+            isAm = hour24 < 12
+            selectedHour = when {
+                hour24 == 0 -> 12
+                hour24 > 12 -> hour24 - 12
+                hour24 == 12 -> 12
+                else -> hour24
+            }
+
             intent.getStringExtra(EXTRA_REPEAT_TYPE)?.let {
                 selectedRepeatType = RepeatType.valueOf(it)
             }
@@ -92,17 +103,52 @@ class CreateAlarmActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            title = if (editingAlarmId != null) "Edit Alarm" else "New Alarm"
+            title = if (editingAlarmId != null) "Edit Alarm" else "Set Alarm"
         }
         binding.toolbar.setNavigationOnClickListener {
             finish()
         }
     }
 
-    private fun setupUI() {
-        // Update time display
-        updateTimeDisplay()
+    private fun setupTimePickers() {
+        // Hour Picker (1-12)
+        binding.hourPicker.apply {
+            minValue = 1
+            maxValue = 12
+            value = selectedHour
+            wrapSelectorWheel = true
+            setFormatter { String.format(Locale.getDefault(), "%02d", it) }
+            setOnValueChangedListener { _, _, newVal ->
+                selectedHour = newVal
+            }
+        }
 
+        // Minute Picker (0-59)
+        binding.minutePicker.apply {
+            minValue = 0
+            maxValue = 59
+            value = selectedMinute
+            wrapSelectorWheel = true
+            setFormatter { String.format(Locale.getDefault(), "%02d", it) }
+            setOnValueChangedListener { _, _, newVal ->
+                selectedMinute = newVal
+            }
+        }
+
+        // AM/PM Picker
+        binding.amPmPicker.apply {
+            minValue = 0
+            maxValue = 1
+            displayedValues = arrayOf("AM", "PM")
+            value = if (isAm) 0 else 1
+            wrapSelectorWheel = true
+            setOnValueChangedListener { _, _, newVal ->
+                isAm = newVal == 0
+            }
+        }
+    }
+
+    private fun setupUI() {
         // Load existing data if editing
         intent?.let { intent ->
             binding.etLabel.setText(intent.getStringExtra(EXTRA_LABEL) ?: "")
@@ -110,11 +156,6 @@ class CreateAlarmActivity : AppCompatActivity() {
                 intent.getBooleanExtra(EXTRA_AUTO_DISABLE_WEEKENDS, true)
             binding.switchAutoDisableHolidays.isChecked =
                 intent.getBooleanExtra(EXTRA_AUTO_DISABLE_HOLIDAYS, true)
-        }
-
-        // Time picker button
-        binding.btnSelectTime.setOnClickListener {
-            showTimePicker()
         }
 
         // Repeat type spinner
@@ -142,29 +183,16 @@ class CreateAlarmActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateTimeDisplay() {
-        val amPm = if (selectedHour < 12) "AM" else "PM"
-        val displayHour = when {
-            selectedHour == 0 -> 12
-            selectedHour > 12 -> selectedHour - 12
-            else -> selectedHour
-        }
-        binding.tvSelectedTime.text = String.format(Locale.getDefault(), "%02d:%02d", displayHour, selectedMinute)
-        binding.tvAmPm.text = amPm
-    }
+    private fun get24HourFormat(): Int {
+        val hour12 = binding.hourPicker.value
+        val isPm = binding.amPmPicker.value == 1
 
-    private fun showTimePicker() {
-        TimePickerDialog(
-            this,
-            { _, hourOfDay, minute ->
-                selectedHour = hourOfDay
-                selectedMinute = minute
-                updateTimeDisplay()
-            },
-            selectedHour,
-            selectedMinute,
-            false  // 12-hour format with AM/PM
-        ).show()
+        return when {
+            hour12 == 12 && !isPm -> 0  // 12 AM = 0
+            hour12 == 12 && isPm -> 12  // 12 PM = 12
+            isPm -> hour12 + 12         // PM hours
+            else -> hour12              // AM hours
+        }
     }
 
     private fun openAudioFilePicker() {
@@ -233,10 +261,13 @@ class CreateAlarmActivity : AppCompatActivity() {
     }
 
     private fun saveAlarm() {
+        val hour24 = get24HourFormat()
+        val minute = binding.minutePicker.value
+
         val alarm = Alarm(
             id = editingAlarmId ?: 0,
-            hour = selectedHour,
-            minute = selectedMinute,
+            hour = hour24,
+            minute = minute,
             isEnabled = true,
             repeatType = when (binding.spinnerRepeatType.selectedItemPosition) {
                 0 -> RepeatType.ONCE
