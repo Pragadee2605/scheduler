@@ -3,17 +3,16 @@
     android:shape="rectangle">
 
     <!-- Light background with subtle tint -->
-    <solid android:color="?attr/colorSurfaceContainerHighest" />
+    <solid android:color="?attr/colorSurfaceVariant" />
 
     <!-- Dashed border -->
     <stroke
-        android:width="2dp"
-        android:color="?attr/colorPrimary"
-        android:dashWidth="8dp"
-        android:dashGap="4dp" />
+        android:width="1.5dp"
+        android:color="@color/accent_indigo"
+        android:dashWidth="10dp"
+        android:dashGap="6dp" />
 
     <!-- Rounded corners -->
-    <corners android:radius="16dp" />
+    <corners android:radius="20dp" />
 
 </shape>
-

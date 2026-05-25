@@ -24,23 +24,45 @@ class AlarmService : Service() {
     private var currentAlarmId: Long = -1
     private var playCount = 0
     private val MAX_PLAYS = 2
+    
+    private val activeAlarmIds = mutableSetOf<Long>()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val alarmId = intent?.getLongExtra(EXTRA_ALARM_ID, -1) ?: -1
-        if (alarmId != -1L) {
-            currentAlarmId = alarmId
-        }
-
-        // Handle dismiss action from notification
+        
+        // Handle dismiss action (manual from activity or notification)
         if (intent?.action == ACTION_DISMISS_ALARM) {
-            handleAutoDismiss()
+            if (alarmId != -1L) {
+                // If dismissing from notification, we need to make sure the activity also closes
+                // and the ONCE alarm is disabled.
+                val timeoutIntent = Intent(ACTION_ALARM_TIMEOUT).apply {
+                    putExtra(EXTRA_ALARM_ID, alarmId)
+                    setPackage(packageName)
+                }
+                sendBroadcast(timeoutIntent)
+                activeAlarmIds.remove(alarmId)
+            }
+            if (activeAlarmIds.isEmpty()) {
+                stopAlarm()
+            } else if (alarmId == currentAlarmId) {
+                // If we dismissed the currently playing alarm, play the previous one in stack
+                val nextId = activeAlarmIds.last()
+                currentAlarmId = nextId
+                updateNotification(nextId)
+                serviceScope.launch {
+                    playAlarm(nextId)
+                }
+            }
             return START_NOT_STICKY
         }
 
-        if (currentAlarmId == -1L) {
-            stopSelf()
+        if (alarmId == -1L) {
+            if (activeAlarmIds.isEmpty()) stopSelf()
             return START_NOT_STICKY
         }
+
+        activeAlarmIds.add(alarmId)
+        currentAlarmId = alarmId
 
         // Create notification channel
         createNotificationChannel()
@@ -57,7 +79,7 @@ class AlarmService : Service() {
         // Launch AlarmRingingActivity
         val activityIntent = Intent(this, AlarmRingingActivity::class.java).apply {
             putExtra(EXTRA_ALARM_ID, alarmId)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         startActivity(activityIntent)
 
@@ -77,8 +99,15 @@ class AlarmService : Service() {
 
         withContext(Dispatchers.Main) {
             try {
+                // Stop and release previous media player if it exists
+                mediaPlayer?.apply {
+                    if (isPlaying) stop()
+                    release()
+                }
+                playCount = 0
+
                 // Initialize MediaPlayer
-                mediaPlayer = MediaPlayer().apply {
+                val mp = MediaPlayer().apply {
                     setDataSource(applicationContext, soundUri)
                     isLooping = false
                     setAudioAttributes(
@@ -88,10 +117,10 @@ class AlarmService : Service() {
                             .build()
                     )
 
-                    setOnCompletionListener { mp ->
+                    setOnCompletionListener { mpListener ->
                         playCount++
                         if (playCount < MAX_PLAYS) {
-                            mp.start()
+                            mpListener.start()
                         } else {
                             // Auto-dismiss after MAX_PLAYS
                             serviceScope.launch(Dispatchers.Main) {
@@ -104,10 +133,11 @@ class AlarmService : Service() {
                     setVolume(0f, 0f)
                     prepare()
                     start()
-
-                    // Fade in
-                    fadeIn(alarm.fadeInDuration, alarm.volume)
                 }
+                mediaPlayer = mp
+
+                // Fade in - pass the instance to avoid affecting future players
+                fadeIn(mp, alarm.fadeInDuration, alarm.volume)
 
                 // Vibrate if enabled
                 if (alarm.vibrate) {
@@ -124,16 +154,22 @@ class AlarmService : Service() {
         }
     }
 
-    private fun fadeIn(durationSeconds: Int, targetVolume: Int) {
+    private fun fadeIn(mp: MediaPlayer, durationSeconds: Int, targetVolume: Int) {
         val steps = 50
         val stepDuration = (durationSeconds * 1000) / steps
         val volumeIncrement = (targetVolume / 100f) / steps
 
         serviceScope.launch {
             repeat(steps) { step ->
-                val volume = volumeIncrement * (step + 1)
-                mediaPlayer?.setVolume(volume, volume)
-                delay(stepDuration.toLong())
+                try {
+                    if (mediaPlayer != mp) return@launch // Stop if this is no longer the current player
+                    val volume = volumeIncrement * (step + 1)
+                    mp.setVolume(volume, volume)
+                    delay(stepDuration.toLong())
+                } catch (e: Exception) {
+                    // mp might be released
+                    return@launch
+                }
             }
         }
     }
@@ -160,7 +196,11 @@ class AlarmService : Service() {
 
     fun stopAlarm() {
         mediaPlayer?.apply {
-            if (isPlaying) stop()
+            try {
+                if (isPlaying) stop()
+            } catch (e: Exception) {
+                // Ignore if already stopped
+            }
             release()
         }
         mediaPlayer = null
@@ -173,14 +213,34 @@ class AlarmService : Service() {
     }
 
     private fun handleAutoDismiss() {
+        val idToDismiss = currentAlarmId
+        
         // Notify activity to finish and reschedule
         val intent = Intent(ACTION_ALARM_TIMEOUT).apply {
-            putExtra(EXTRA_ALARM_ID, currentAlarmId)
+            putExtra(EXTRA_ALARM_ID, idToDismiss)
             setPackage(packageName)
         }
         sendBroadcast(intent)
         
-        stopAlarm()
+        activeAlarmIds.remove(idToDismiss)
+        
+        if (activeAlarmIds.isEmpty()) {
+            stopAlarm()
+        } else {
+            // Play next alarm in stack
+            val nextId = activeAlarmIds.last()
+            currentAlarmId = nextId
+            updateNotification(nextId)
+            serviceScope.launch {
+                playAlarm(nextId)
+            }
+        }
+    }
+
+    private fun updateNotification(alarmId: Long) {
+        val notification = createNotification(alarmId)
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
     private fun createNotificationChannel() {

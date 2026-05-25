@@ -7,31 +7,42 @@
     android:layout_marginStart="16dp"
     android:layout_marginTop="6dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="2dp"
+    android:layout_marginBottom="6dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="?attr/colorSurfaceVariant"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="?attr/colorOnSurfaceVariant">
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp"
+    app:rippleColor="@color/accent_indigo_soft">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="14dp">
+        android:padding="18dp">
+
+        <!-- Accent indicator line -->
+        <View
+            android:id="@+id/accentLine"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_premium_gradient_card"
+            app:layout_constraintTop_toTopOf="@+id/tvTime"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRepeat"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Time Display -->
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:fontFamily="sans-serif-medium"
-            android:letterSpacing="-0.02"
+            android:letterSpacing="-0.03"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="32sp"
+            android:textSize="36sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accentLine"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="07:30" />
 
@@ -40,11 +51,14 @@
             android:id="@+id/tvAmPm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/bg_status_badge"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/accent_indigo"
+            android:textSize="11sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTime"
             app:layout_constraintStart_toEndOf="@+id/tvTime"
             app:layout_constraintTop_toTopOf="@+id/tvTime"
             tools:text="AM" />
@@ -65,15 +79,17 @@
             android:id="@+id/tvLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold"
+            android:letterSpacing="-0.01"
             app:layout_constraintEnd_toStartOf="@+id/switchEnabled"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accentLine"
             app:layout_constraintTop_toBottomOf="@+id/tvTime"
             tools:text="Wake up alarm" />
 
@@ -82,19 +98,18 @@
             android:id="@+id/tvRepeat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="12dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="11sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/switchEnabled"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accentLine"
             app:layout_constraintTop_toBottomOf="@+id/tvLabel"
             tools:text="Mon, Tue, Wed, Thu, Fri" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
-

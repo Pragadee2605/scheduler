@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="?android:attr/colorBackground">
 
-    <LinearLayout
+    <!-- Premium Header -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackground"
+        android:elevation="0dp"
+        app:elevation="0dp">
 
-        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,79 +21,83 @@
             android:paddingStart="24dp"
             android:paddingTop="20dp"
             android:paddingEnd="24dp"
-            android:paddingBottom="16dp">
+            android:paddingBottom="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="World Clock"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:letterSpacing="-0.02" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Track time around the world"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <!-- Empty State -->
-        <LinearLayout
-            android:id="@+id/emptyState"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="32dp"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:alpha="0.3"
-                android:contentDescription="No Clocks"
-                android:src="@android:drawable/ic_menu_recent_history"
-                app:tint="?attr/colorOnSurface" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="No world clocks yet"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="@string/emoji_globe"
+                android:textSize="28sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="Add cities to track time around the world"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
+                android:text="@string/world_clock"
+                style="@style/PremiumHeaderTitle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/header_subtitle_world_clock"
+                style="@style/PremiumHeaderSubtitle" />
+
         </LinearLayout>
 
-        <!-- World Clocks List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvWorldClocks"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:clipToPadding="false"
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="80dp"
-            tools:listitem="@layout/item_world_clock" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Premium Empty State -->
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="40dp"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/emoji_clock"
+            android:textSize="56sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/empty_no_world_clocks"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="-0.02" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/empty_no_world_clocks_hint"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp" />
     </LinearLayout>
+
+    <!-- World Clocks List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWorldClocks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingStart="4dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="100dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_world_clock" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddClock"
@@ -99,10 +105,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="96dp"
-        android:contentDescription="@string/add_alarm"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/add_world_clock"
         app:srcCompat="@android:drawable/ic_input_add"
-        app:backgroundTint="?attr/colorPrimary"
-        app:tint="?attr/colorOnPrimary"/>
+        app:backgroundTint="@color/accent_indigo"
+        app:tint="@color/white"
+        app:elevation="8dp"
+        app:shapeAppearance="@style/PremiumShapeMedium" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,67 +5,73 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginTop="6dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="2dp"
+    android:layout_marginBottom="5dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="?attr/colorSurfaceVariant"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="?attr/colorOnSurfaceVariant">
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp"
+    app:rippleColor="@color/accent_indigo_soft">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:padding="16dp">
 
         <!-- Ticket ID Badge -->
         <TextView
             android:id="@+id/tvTicketId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_glass_card"
-            android:paddingStart="8dp"
-            android:paddingTop="3dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="3dp"
-            android:textColor="?attr/colorOnSurface"
+            android:background="@drawable/bg_status_badge"
+            android:paddingStart="10dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="4dp"
+            android:textColor="@color/accent_indigo"
             android:textSize="11sp"
             android:textStyle="bold"
+            android:fontFamily="monospace"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="DEV-123" />
 
         <!-- Status Chip -->
+
+        <!-- Title -->
         <com.google.android.material.chip.Chip
             android:id="@+id/chipStatus"
             style="@style/Widget.Material3.Chip.Assist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="82dp"
+            android:layout_height="32dp"
             android:textSize="10sp"
-            app:chipBackgroundColor="?attr/colorPrimaryContainer"
+            android:textStyle="bold"
+            app:chipBackgroundColor="@color/accent_indigo_soft"
+            app:chipCornerRadius="8dp"
             app:chipIconSize="12dp"
-            app:chipMinHeight="24dp"
+            app:chipMinHeight="26dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:textEndPadding="6dp"
-            app:textStartPadding="6dp"
+            app:textEndPadding="8dp"
+            app:textStartPadding="8dp"
             tools:text="In Progress" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2dp"
             app:layout_constraintEnd_toStartOf="@+id/cardStoryPoints"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTicketId"
@@ -74,11 +80,12 @@
         <!-- Story Points Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardStoryPoints"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            app:cardCornerRadius="10dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:cardBackgroundColor="@color/accent_violet_soft"
+            app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
+            app:strokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvTitle">
 
@@ -92,7 +99,7 @@
                     android:id="@+id/tvStoryPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/accent_violet"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="5" />
@@ -101,8 +108,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
-

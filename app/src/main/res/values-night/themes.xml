@@ -1,15 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Dark theme - Black & White -->
+    <!-- 2026 Premium Dark Theme -->
     <style name="Base.Theme.DevLifeOS" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary Colors -->
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
 
         <!-- Secondary Colors -->
         <item name="colorSecondary">@color/md_theme_dark_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
         <item name="colorOnSecondaryContainer">@color/white</item>
 
         <!-- Background Colors -->
@@ -20,21 +21,31 @@
         <item name="colorSurface">@color/md_theme_dark_surface</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/neutral_300</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+
+        <!-- Outline -->
+        <item name="colorOutline">@color/md_theme_dark_outline</item>
 
         <!-- Error Colors -->
         <item name="colorError">@color/md_theme_dark_error</item>
         <item name="colorOnError">@color/black</item>
 
         <!-- Status Bar -->
-        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:statusBarColor">@color/md_theme_dark_background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
 
         <!-- Navigation Bar -->
-        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/md_theme_dark_surface</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o">false</item>
+
+        <!-- Smooth window animations -->
+        <item name="android:windowAnimationStyle">@style/PremiumWindowAnimation</item>
+
+        <!-- Material 3 Shape -->
+        <item name="shapeAppearanceSmallComponent">@style/PremiumShapeSmall</item>
+        <item name="shapeAppearanceMediumComponent">@style/PremiumShapeMedium</item>
+        <item name="shapeAppearanceLargeComponent">@style/PremiumShapeLarge</item>
     </style>
 
     <style name="Theme.DevLifeOS" parent="Base.Theme.DevLifeOS" />
 </resources>
-

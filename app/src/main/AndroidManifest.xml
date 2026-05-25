@@ -48,7 +48,7 @@
             android:name=".ui.alarm.AlarmRingingActivity"
             android:exported="false"
             android:excludeFromRecents="true"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:showOnLockScreen="true"
             android:turnScreenOn="true" />
 

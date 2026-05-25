@@ -61,7 +61,10 @@ class AlarmRingingActivity : AppCompatActivity() {
     private val timeoutReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == AlarmService.ACTION_ALARM_TIMEOUT) {
-                dismissAlarm()
+                val timeoutAlarmId = intent.getLongExtra(AlarmService.EXTRA_ALARM_ID, -1)
+                if (timeoutAlarmId == -1L || timeoutAlarmId == alarmId) {
+                    dismissAlarm()
+                }
             }
         }
     }
@@ -357,9 +360,13 @@ class AlarmRingingActivity : AppCompatActivity() {
             }
         }
 
-        // Stop the alarm service
-        val serviceIntent = Intent(this, AlarmService::class.java)
-        stopService(serviceIntent)
+        // Notify service to stop this specific alarm
+        val serviceIntent = Intent(this, AlarmService::class.java).apply {
+            action = AlarmService.ACTION_DISMISS_ALARM
+            putExtra(AlarmService.EXTRA_ALARM_ID, alarmId)
+        }
+        startService(serviceIntent)
+
         finish()
     }
 

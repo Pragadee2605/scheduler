@@ -79,5 +79,65 @@
     <string name="Holidays">Holidays</string>
     <string name="india_government_holidays_for_2026">India government holidays for 2026</string>
     <string name="no_holidays_synced">No holidays synced</string>
-</resources>
 
+    <!-- Premium UI 2026 Strings -->
+    <string name="emoji_alarm">⏰</string>
+    <string name="emoji_bell">🔔</string>
+    <string name="emoji_party">🎉</string>
+    <string name="emoji_calendar">📅</string>
+    <string name="emoji_ticket">🎫</string>
+    <string name="emoji_clipboard">📋</string>
+    <string name="emoji_globe">🌍</string>
+    <string name="emoji_clock">🕐</string>
+    <string name="emoji_refresh">🔄</string>
+    <string name="emoji_notes">📝  Notes</string>
+    <string name="emoji_pencil">✏️  Manual Entry</string>
+    <string name="emoji_robot">🤖  Smart Upload</string>
+    <string name="emoji_world_clock">🌍  Add World Clock</string>
+
+    <string name="header_subtitle_alarms">Manage your wake-up routine</string>
+    <string name="header_subtitle_holidays">Stay ahead of your time off</string>
+    <string name="header_subtitle_tickets">Track your sprint work</string>
+    <string name="header_subtitle_world_clock">Track time around the world</string>
+    <string name="header_subtitle_time_converter">24-hour to 12-hour format</string>
+
+    <string name="empty_no_alarms">No alarms yet</string>
+    <string name="empty_no_alarms_hint">Tap + to create your first alarm</string>
+    <string name="empty_no_holidays">No holidays synced</string>
+    <string name="empty_no_holidays_hint">Sync holidays or add your own</string>
+    <string name="empty_no_tickets">No tickets yet</string>
+    <string name="empty_no_tickets_hint">Add a ticket to start tracking</string>
+    <string name="empty_no_world_clocks">No world clocks yet</string>
+    <string name="empty_no_world_clocks_hint">Add cities to track time\naround the world</string>
+
+    <string name="time_converter">Time Converter</string>
+    <string name="enter_24_hour_time">Enter 24-Hour Time</string>
+    <string name="hint_hh">HH</string>
+    <string name="hint_mm">MM</string>
+    <string name="colon">:</string>
+    <string name="convert">Convert</string>
+    <string name="twelve_hour_format">12-Hour Format</string>
+    <string name="result_placeholder">--:-- --</string>
+    <string name="enter_time_to_see">Enter time to see conversion</string>
+    <string name="add_holiday">Add Holiday</string>
+    <string name="label_repeat">Repeat</string>
+    <string name="label_sound">Sound</string>
+    <string name="label_default">Default</string>
+    <string name="label_change">Change</string>
+    <string name="skip_weekends">Skip weekends</string>
+    <string name="skip_holidays">Skip holidays</string>
+    <string name="save_alarm">Save Alarm</string>
+    <string name="set_alarm">Set Alarm</string>
+    <string name="add_company_holiday">Add Company Holiday</string>
+    <string name="add_holidays_desc">Add holidays manually or upload calendar image</string>
+    <string name="upload_calendar_image">Upload Calendar Image</string>
+    <string name="ai_extract_desc">AI will extract holiday dates</string>
+    <string name="choose_image">📸 Choose Image</string>
+    <string name="select_date">Select Date</string>
+    <string name="start_typing">Start typing to see suggestions</string>
+    <string name="add_country_clock">Add Country Clock</string>
+    <string name="swipe_to_dismiss">Swipe to dismiss</string>
+    <string name="power_dismiss">Or press power button to dismiss</string>
+    <string name="holiday_icon_desc">Holiday icon</string>
+    <string name="upload_icon_desc">Upload calendar icon</string>
+</resources>

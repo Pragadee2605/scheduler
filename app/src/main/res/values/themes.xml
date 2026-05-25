@@ -1,46 +1,154 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme - Black & White -->
+    <!-- 2026 Premium Base Theme - Light -->
     <style name="Base.Theme.DevLifeOS" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary Colors -->
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
 
-        <!-- Secondary Colors -->
+        <!-- Secondary Colors - Accent Indigo -->
         <item name="colorSecondary">@color/md_theme_light_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_light_primaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/black</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_primary</item>
 
         <!-- Background Colors -->
         <item name="android:colorBackground">@color/md_theme_light_background</item>
-        <item name="colorOnBackground">@color/black</item>
+        <item name="colorOnBackground">@color/md_theme_light_primary</item>
 
         <!-- Surface Colors -->
         <item name="colorSurface">@color/md_theme_light_surface</item>
-        <item name="colorOnSurface">@color/black</item>
+        <item name="colorOnSurface">@color/md_theme_light_primary</item>
         <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/neutral_600</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+
+        <!-- Outline -->
+        <item name="colorOutline">@color/md_theme_light_outline</item>
 
         <!-- Error Colors -->
         <item name="colorError">@color/md_theme_light_error</item>
         <item name="colorOnError">@color/white</item>
 
-        <!-- Status Bar -->
-        <item name="android:statusBarColor">@color/white</item>
+        <!-- Status Bar - Edge-to-edge feel -->
+        <item name="android:statusBarColor">@color/md_theme_light_background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
         <!-- Navigation Bar -->
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/md_theme_light_surface</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o">true</item>
+
+        <!-- Smooth window animations -->
+        <item name="android:windowAnimationStyle">@style/PremiumWindowAnimation</item>
+
+        <!-- Material 3 Shape -->
+        <item name="shapeAppearanceSmallComponent">@style/PremiumShapeSmall</item>
+        <item name="shapeAppearanceMediumComponent">@style/PremiumShapeMedium</item>
+        <item name="shapeAppearanceLargeComponent">@style/PremiumShapeLarge</item>
     </style>
 
     <style name="Theme.DevLifeOS" parent="Base.Theme.DevLifeOS" />
 
-    <!-- NumberPicker Theme for Time Selection -->
+    <!-- Premium Shapes -->
+    <style name="PremiumShapeSmall" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="PremiumShapeMedium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">20dp</item>
+    </style>
+    <style name="PremiumShapeLarge" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <!-- Premium Window Animation -->
+    <style name="PremiumWindowAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <!-- NumberPicker Theme -->
     <style name="NumberPickerTheme">
-        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorPrimary">@color/md_theme_light_primary</item>
         <item name="android:textSize">28sp</item>
     </style>
-</resources>
 
+    <!-- Premium Card Style -->
+    <style name="PremiumCard" parent="Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+    </style>
+
+    <!-- Premium Button -->
+    <style name="PremiumButton" parent="Widget.Material3.Button">
+        <item name="cornerRadius">16dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <!-- Premium FAB -->
+    <style name="PremiumFAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="shapeAppearance">@style/PremiumShapeMedium</item>
+        <item name="elevation">6dp</item>
+    </style>
+
+    <!-- Premium Header Title -->
+    <style name="PremiumHeaderTitle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Premium Header Subtitle -->
+    <style name="PremiumHeaderSubtitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <!-- Premium Bottom Nav -->
+    <style name="PremiumBottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="elevation">0dp</item>
+        <item name="itemIconSize">24dp</item>
+        <item name="itemRippleColor">@color/accent_indigo_soft</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemTextAppearanceActive">@style/PremiumBottomNavTextActive</item>
+        <item name="itemTextAppearanceInactive">@style/PremiumBottomNavTextInactive</item>
+    </style>
+
+    <style name="PremiumBottomNavTextActive" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PremiumBottomNavTextInactive" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <!-- Active indicator pill for bottom nav -->
+    <style name="PremiumNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/accent_indigo_soft</item>
+        <item name="android:width">48dp</item>
+        <item name="android:height">28dp</item>
+        <item name="shapeAppearance">@style/PremiumShapeSmall</item>
+    </style>
+
+    <!-- Premium Toolbar -->
+    <style name="PremiumToolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="titleTextAppearance">@style/PremiumToolbarTitle</item>
+    </style>
+
+    <style name="PremiumToolbarTitle" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+</resources>

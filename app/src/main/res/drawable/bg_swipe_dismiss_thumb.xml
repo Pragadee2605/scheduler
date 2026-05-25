@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/alarm_dismiss_color" />
-    <corners android:radius="36dp" />
+    <gradient
+        android:angle="135"
+        android:startColor="@color/accent_rose"
+        android:endColor="#FF6B81"
+        android:type="linear" />
+    <corners android:radius="32dp" />
 </shape>

@@ -11,14 +11,14 @@
         android:id="@+id/backgroundOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.3" />
+        android:alpha="0.15" />
 
     <!-- Top Section - Status & Date -->
     <LinearLayout
         android:id="@+id/topSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,20 +28,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:alpha="0.9"
+            android:alpha="0.95"
             android:text="Wake Up"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:letterSpacing="0.08" />
+            android:letterSpacing="0.1" />
 
         <TextView
             android:id="@+id/tvCurrentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0.7"
+            android:alpha="0.75"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:letterSpacing="0.02"
             tools:text="Sunday, January 26" />
 
     </LinearLayout>
@@ -49,13 +50,13 @@
     <!-- Center - Time Display with Glassmorphism -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardTimeContainer"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginEnd="56dp"
-        android:elevation="8dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:elevation="12dp"
         app:cardBackgroundColor="@color/glass_overlay"
-        app:cardCornerRadius="140dp"
+        app:cardCornerRadius="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,13 +74,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:shadowColor="#80000000"
+                android:shadowColor="#40000000"
                 android:shadowDx="0"
                 android:shadowDy="4"
-                android:shadowRadius="12"
+                android:shadowRadius="16"
                 android:textColor="@color/white"
-                android:textSize="72sp"
+                android:textSize="76sp"
                 android:textStyle="bold"
+                android:letterSpacing="-0.03"
                 tools:text="07:30" />
 
             <TextView
@@ -89,26 +91,28 @@
                 android:layout_marginTop="4dp"
                 android:alpha="0.9"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
+                android:letterSpacing="0.1"
                 tools:text="AM" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Tap to Snooze Hint (Above time) -->
+    <!-- Tap to Snooze Hint -->
     <TextView
         android:id="@+id/tvSnoozeHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:alpha="0.8"
-        android:drawablePadding="8dp"
+        android:layout_marginBottom="28dp"
+        android:alpha="0.85"
+        android:drawablePadding="10dp"
         android:gravity="center"
         android:text="@string/tap_circle_to_snooze_5_min"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:letterSpacing="0.02"
         app:drawableTopCompat="@android:drawable/ic_lock_idle_alarm"
         app:layout_constraintBottom_toTopOf="@+id/cardTimeContainer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,8 +121,8 @@
     <!-- Snooze Button (Invisible overlay on time circle) -->
     <View
         android:id="@+id/btnSnooze"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:background="@drawable/ripple_circular"
         android:clickable="true"
         android:focusable="true"
@@ -132,9 +136,9 @@
         android:id="@+id/bottomSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="72dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -154,11 +158,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="40dp"
-                android:text="Swipe to dismiss"
+                android:text="@string/swipe_to_dismiss"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:alpha="0.9" />
+                android:alpha="0.9"
+                android:letterSpacing="0.02" />
 
             <!-- Swipeable Thumb -->
             <FrameLayout
@@ -168,14 +173,14 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_margin="4dp"
                 android:background="@drawable/bg_swipe_dismiss_thumb"
-                android:elevation="4dp">
+                android:elevation="6dp">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_close_clear_cancel"
-                    android:tint="@color/alarm_dismiss_color"
+                    android:tint="@color/white"
                     tools:ignore="UseAppTint" />
 
             </FrameLayout>
@@ -187,10 +192,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:alpha="0.6"
-            android:text="Or press power button to dismiss"
+            android:alpha="0.55"
+            android:text="@string/power_dismiss"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:letterSpacing="0.02" />
 
     </LinearLayout>
 

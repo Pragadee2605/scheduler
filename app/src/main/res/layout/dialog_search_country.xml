@@ -4,7 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@drawable/bg_bottom_sheet"
+    android:padding="28dp">
+
+    <!-- Handle bar -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_modern_card" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/emoji_world_clock"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:letterSpacing="-0.02"
+        android:layout_marginBottom="20dp" />
 
     <!-- Country Name Input with Autocomplete -->
     <com.google.android.material.textfield.TextInputLayout
@@ -12,6 +31,11 @@
         android:layout_height="wrap_content"
         android:hint="Country Name"
         app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="14dp"
+        app:boxCornerRadiusBottomStart="14dp"
+        app:boxCornerRadiusTopEnd="14dp"
+        app:boxCornerRadiusTopStart="14dp"
+        app:boxStrokeColor="@color/accent_indigo"
         app:endIconMode="dropdown_menu"
         app:startIconDrawable="@android:drawable/ic_menu_search">
 
@@ -26,8 +50,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Start typing to see country suggestions"
+        android:layout_marginTop="10dp"
+        android:text="@string/start_typing"
         android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="12sp" />
 
@@ -36,10 +60,13 @@
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="24dp"
-        android:text="Add Country Clock"
+        android:layout_marginTop="28dp"
+        android:text="@string/add_country_clock"
         android:textSize="16sp"
-        app:cornerRadius="12dp"
-        app:icon="@android:drawable/ic_input_add" />
+        android:textStyle="bold"
+        android:backgroundTint="@color/accent_indigo"
+        app:cornerRadius="16dp"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/white" />
 
 </LinearLayout>

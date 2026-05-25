@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="?android:attr/colorBackground">
 
     <!-- Header Section -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
+        android:background="?android:attr/colorBackground"
         android:elevation="0dp"
         app:elevation="0dp">
 
@@ -22,26 +22,27 @@
             android:paddingStart="24dp"
             android:paddingTop="20dp"
             android:paddingEnd="24dp"
-            android:paddingBottom="16dp">
+            android:paddingBottom="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Time Converter"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:letterSpacing="-0.02" />
+                android:text="@string/emoji_refresh"
+                android:textSize="28sp" />
+
+            <TextView
+                style="@style/PremiumHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/time_converter" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_gravity="center"
-                android:text="24-hour to 12-hour format"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
+                android:text="@string/header_subtitle_time_converter"
+                style="@style/PremiumHeaderSubtitle" />
 
         </LinearLayout>
 
@@ -59,35 +60,35 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Input Section -->
+            <!-- Input Section - Premium Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOnSurfaceVariant">
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Enter 24-Hour Time"
+                        android:text="@string/enter_24_hour_time"
                         android:textColor="?attr/colorOnSurface"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.01" />
 
                     <!-- Hour and Minute Input -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -97,11 +98,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="HH"
-                            app:boxCornerRadiusBottomEnd="12dp"
-                            app:boxCornerRadiusBottomStart="12dp"
-                            app:boxCornerRadiusTopEnd="12dp"
-                            app:boxCornerRadiusTopStart="12dp">
+                            android:hint="@string/hint_hh"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxStrokeColor="@color/accent_indigo">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etHour24"
@@ -110,8 +112,9 @@
                                 android:inputType="number"
                                 android:maxLength="2"
                                 android:textAlignment="center"
-                                android:textSize="28sp"
-                                android:textStyle="bold" />
+                                android:textSize="32sp"
+                                android:textStyle="bold"
+                                android:fontFamily="sans-serif-medium" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,11 +122,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:text=":"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="28sp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:text="@string/colon"
+                            android:textColor="@color/accent_indigo"
+                            android:textSize="32sp"
                             android:textStyle="bold" />
 
                         <!-- Minute Input -->
@@ -132,11 +135,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="MM"
-                            app:boxCornerRadiusBottomEnd="12dp"
-                            app:boxCornerRadiusBottomStart="12dp"
-                            app:boxCornerRadiusTopEnd="12dp"
-                            app:boxCornerRadiusTopStart="12dp">
+                            android:hint="@string/hint_mm"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxStrokeColor="@color/accent_indigo">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etMinute"
@@ -145,8 +149,9 @@
                                 android:inputType="number"
                                 android:maxLength="2"
                                 android:textAlignment="center"
-                                android:textSize="28sp"
-                                android:textStyle="bold" />
+                                android:textSize="32sp"
+                                android:textStyle="bold"
+                                android:fontFamily="sans-serif-medium" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +161,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="24dp"
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
@@ -166,10 +171,12 @@
                             android:layout_marginEnd="8dp"
                             android:layout_weight="1"
                             android:paddingVertical="14dp"
-                            android:text="Convert"
+                            android:text="@string/convert"
                             android:textSize="15sp"
-                            app:cornerRadius="12dp"
-                            app:icon="@android:drawable/ic_menu_rotate" />
+                            android:backgroundTint="@color/accent_indigo"
+                            app:cornerRadius="16dp"
+                            app:icon="@android:drawable/ic_menu_rotate"
+                            app:iconTint="@color/white" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnClear"
@@ -179,10 +186,13 @@
                             android:layout_marginStart="8dp"
                             android:layout_weight="1"
                             android:paddingVertical="14dp"
-                            android:text="Clear"
+                            android:text="@string/clear"
                             android:textSize="15sp"
-                            app:cornerRadius="12dp"
-                            app:icon="@android:drawable/ic_menu_close_clear_cancel" />
+                            android:textColor="@color/accent_indigo"
+                            app:cornerRadius="16dp"
+                            app:strokeColor="@color/accent_indigo"
+                            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+                            app:iconTint="@color/accent_indigo" />
 
                     </LinearLayout>
 
@@ -190,32 +200,32 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Result Section -->
+            <!-- Result Section - Premium Gradient Border -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorPrimary">
+                app:cardBackgroundColor="@color/accent_indigo_soft"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="24dp">
+                    android:padding="28dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12-Hour Format"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:text="@string/twelve_hour_format"
+                        android:textColor="@color/accent_indigo"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05" />
 
                     <TextView
                         android:id="@+id/tvResult12Hour"
@@ -223,10 +233,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="-0.02"
-                        android:text="--:-- --"
+                        android:letterSpacing="-0.03"
+                        android:text="@string/result_placeholder"
                         android:textColor="?attr/colorOnSurface"
-                        android:textSize="48sp"
+                        android:textSize="52sp"
                         android:textStyle="bold" />
 
                     <!-- Explanation Card -->
@@ -237,26 +247,26 @@
                         android:layout_marginTop="16dp"
                         android:visibility="gone"
                         app:cardBackgroundColor="?attr/colorSurface"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="0dp">
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
 
                         <TextView
                             android:id="@+id/tvResultExplanation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="monospace"
-                            android:padding="12dp"
-                            android:text="Enter time to see conversion"
-                            android:textColor="?attr/colorOnSurface"
+                            android:padding="14dp"
+                            android:text="@string/enter_time_to_see"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             android:textSize="12sp"
-                            android:lineSpacingExtra="2dp" />
+                            android:lineSpacingExtra="3dp" />
 
                     </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
-
 
         </LinearLayout>
 

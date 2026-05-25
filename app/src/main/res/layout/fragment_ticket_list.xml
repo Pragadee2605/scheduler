@@ -4,38 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="?android:attr/colorBackground">
 
-    <!-- Header -->
-    <LinearLayout
+    <!-- Premium Header -->
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp">
+        android:background="?android:attr/colorBackground"
+        android:elevation="0dp"
+        app:elevation="0dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tickets"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="12dp">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emoji_ticket"
+                android:textSize="28sp" />
+
+            <TextView
+                style="@style/PremiumHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/tickets" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/header_subtitle_tickets"
+                style="@style/PremiumHeaderSubtitle" />
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTickets"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
         android:clipToPadding="false"
-        android:paddingBottom="88dp"
+        android:paddingHorizontal="4dp"
+        android:paddingBottom="100dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_ticket" />
 
-    <!-- Empty State -->
+    <!-- Premium Empty State -->
     <LinearLayout
         android:id="@+id/emptyView"
         android:layout_width="wrap_content"
@@ -43,14 +65,33 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
+        android:padding="40dp"
         android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No tickets"
+            android:text="@string/emoji_clipboard"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/empty_no_tickets"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="-0.02" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/empty_no_tickets_hint"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -59,11 +100,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="88dp"
-        android:contentDescription="@string/add_alarm"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/add_ticket"
         app:srcCompat="@android:drawable/ic_input_add"
-        app:backgroundTint="?attr/colorPrimary"
-        app:tint="?attr/colorOnPrimary"/>
+        app:backgroundTint="@color/accent_indigo"
+        app:tint="@color/white"
+        app:elevation="8dp"
+        app:shapeAppearance="@style/PremiumShapeMedium" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,29 +2,50 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:padding="28dp">
+
+        <!-- Handle bar for sheet-like feel -->
+        <View
+            android:id="@+id/handleBar"
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_modern_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/add_jira_ticket"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:letterSpacing="-0.02"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/handleBar" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTicketId"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:hint="@string/ticket_id"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeColor="@color/accent_indigo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle">
@@ -34,15 +55,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapCharacters"
+                android:fontFamily="monospace"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTitle"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:hint="@string/title"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeColor="@color/accent_indigo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilTicketId">
@@ -57,10 +85,16 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilStoryPoints"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:hint="@string/story_points"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeColor="@color/accent_indigo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilTitle">
@@ -77,8 +111,11 @@
             android:id="@+id/tvStatusLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="18dp"
             android:text="@string/status"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurface"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilStoryPoints" />
 
@@ -87,16 +124,24 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/bg_modern_card"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvStatusLabel" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDescription"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:hint="@string/description"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeColor="@color/accent_indigo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerStatus">
@@ -113,11 +158,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancel"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:text="@string/cancel"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:strokeColor="?attr/colorOutline"
+            app:cornerRadius="14dp"
             app:layout_constraintEnd_toStartOf="@+id/btnSave"
             app:layout_constraintTop_toBottomOf="@+id/tilDescription" />
 
@@ -125,9 +173,11 @@
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
             android:text="@string/save"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="@color/accent_indigo"
+            android:textStyle="bold"
+            app:cornerRadius="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnCancel" />
 
