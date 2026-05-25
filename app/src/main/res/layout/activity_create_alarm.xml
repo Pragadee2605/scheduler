@@ -152,6 +152,73 @@
                         android:background="@drawable/bg_modern_card"
                         android:padding="8dp" />
 
+                    <!-- Day Picker for Weekdays -->
+                    <LinearLayout
+                        android:id="@+id/dayPickerContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnMon"
+                            style="@style/DaySelectionButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="@string/day_mon" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnTue"
+                            style="@style/DaySelectionButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/day_tue" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnWed"
+                            style="@style/DaySelectionButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/day_wed" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnThu"
+                            style="@style/DaySelectionButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/day_thu" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFri"
+                            style="@style/DaySelectionButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/day_fri" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSat"
+                            style="@style/DaySelectionButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/day_sat" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSun"
+                            style="@style/DaySelectionButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/day_sun" />
+
+                    </LinearLayout>
+
                     <!-- Sound -->
                     <TextView
                         android:id="@+id/tvRingtoneLabel"

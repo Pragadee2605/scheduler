@@ -18,7 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:paddingStart="24dp"
             android:paddingTop="20dp"
             android:paddingEnd="24dp"
@@ -30,19 +31,25 @@
                 android:text="@string/emoji_refresh"
                 android:textSize="28sp" />
 
-            <TextView
-                style="@style/PremiumHeaderTitle"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/time_converter" />
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/header_subtitle_time_converter"
-                style="@style/PremiumHeaderSubtitle" />
+                <TextView
+                    style="@style/PremiumHeaderTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_converter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/header_subtitle_time_converter"
+                    style="@style/PremiumHeaderSubtitle" />
+            </LinearLayout>
 
         </LinearLayout>
 

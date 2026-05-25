@@ -4,17 +4,22 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.devlife.devlifeos.R
 import com.devlife.devlifeos.data.local.DevLifeDatabase
 import com.devlife.devlifeos.data.local.entity.Alarm
 import com.devlife.devlifeos.data.local.entity.RepeatType
 import com.devlife.devlifeos.data.repository.AlarmRepository
 import com.devlife.devlifeos.databinding.ActivityCreateAlarmBinding
 import com.devlife.devlifeos.domain.alarm.AlarmSchedulerImpl
+import com.google.android.material.button.MaterialButton
 import java.util.Locale
 
 /**
@@ -32,6 +37,7 @@ class CreateAlarmActivity : AppCompatActivity() {
     private var selectedRepeatType = RepeatType.ONCE
     private var selectedRingtoneUri: String = "default"
     private var selectedRingtoneName: String = "Default alarm sound"
+    private var selectedDays = mutableSetOf<Int>()
 
     private var editingAlarmId: Long? = null
 
@@ -53,6 +59,7 @@ class CreateAlarmActivity : AppCompatActivity() {
         const val EXTRA_AUTO_DISABLE_WEEKENDS = "auto_disable_weekends"
         const val EXTRA_AUTO_DISABLE_HOLIDAYS = "auto_disable_holidays"
         const val EXTRA_SOUND_URI = "sound_uri"
+        const val EXTRA_SELECTED_DAYS = "selected_days"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,6 +100,11 @@ class CreateAlarmActivity : AppCompatActivity() {
 
             intent.getStringExtra(EXTRA_REPEAT_TYPE)?.let {
                 selectedRepeatType = RepeatType.valueOf(it)
+            }
+            val daysArray = intent.getIntArrayExtra(EXTRA_SELECTED_DAYS)
+            daysArray?.let {
+                selectedDays.clear()
+                selectedDays.addAll(it.toList())
             }
             selectedRingtoneUri = intent.getStringExtra(EXTRA_SOUND_URI) ?: "default"
             selectedRingtoneName = getRingtoneName(selectedRingtoneUri)
@@ -171,6 +183,20 @@ class CreateAlarmActivity : AppCompatActivity() {
             RepeatType.WEEKDAYS -> 2
         })
 
+        binding.spinnerRepeatType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (position == 2) { // Weekdays
+                    binding.dayPickerContainer.visibility = View.VISIBLE
+                } else {
+                    binding.dayPickerContainer.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        setupDayButtons()
+
         // Ringtone selection
         binding.tvSelectedRingtone.text = selectedRingtoneName
         binding.btnSelectRingtone.setOnClickListener {
@@ -180,6 +206,48 @@ class CreateAlarmActivity : AppCompatActivity() {
         // Save button
         binding.btnSave.setOnClickListener {
             saveAlarm()
+        }
+    }
+
+    private fun setupDayButtons() {
+        val buttons = listOf(
+            binding.btnMon to 1,
+            binding.btnTue to 2,
+            binding.btnWed to 3,
+            binding.btnThu to 4,
+            binding.btnFri to 5,
+            binding.btnSat to 6,
+            binding.btnSun to 7
+        )
+
+        buttons.forEach { (button, dayIndex) ->
+            updateDayButtonUI(button, selectedDays.contains(dayIndex))
+            button.setOnClickListener {
+                toggleDaySelection(dayIndex, button)
+            }
+        }
+    }
+
+    private fun toggleDaySelection(dayIndex: Int, button: MaterialButton) {
+        if (selectedDays.contains(dayIndex)) {
+            selectedDays.remove(dayIndex)
+            updateDayButtonUI(button, false)
+        } else {
+            selectedDays.add(dayIndex)
+            updateDayButtonUI(button, true)
+        }
+    }
+
+    private fun updateDayButtonUI(button: MaterialButton, isSelected: Boolean) {
+        if (isSelected) {
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.accent_indigo))
+            button.setTextColor(ContextCompat.getColor(this, R.color.white))
+            button.strokeWidth = 0
+        } else {
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.md_theme_light_surfaceVariant))
+            button.setTextColor(ContextCompat.getColor(this, R.color.md_theme_light_onSurfaceVariant))
+            button.strokeColor = ContextCompat.getColorStateList(this, R.color.md_theme_light_outline)
+            button.strokeWidth = 1
         }
     }
 
@@ -276,7 +344,7 @@ class CreateAlarmActivity : AppCompatActivity() {
                 else -> RepeatType.ONCE
             },
             selectedDays = if (binding.spinnerRepeatType.selectedItemPosition == 2) {
-                setOf(1, 2, 3, 4, 5) // Mon-Fri by default
+                if (selectedDays.isEmpty()) setOf(1, 2, 3, 4, 5) else selectedDays.toSet()
             } else {
                 emptySet()
             },

@@ -18,7 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:paddingHorizontal="24dp"
             android:paddingTop="20dp"
             android:paddingBottom="12dp">
@@ -29,22 +30,28 @@
                 android:text="@string/emoji_alarm"
                 android:textSize="28sp" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/alarms"
-                style="@style/PremiumHeaderTitle" />
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvNextAlarmTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                style="@style/PremiumHeaderSubtitle"
-                android:visibility="gone"
-                tools:text="Next alarm in 7h 30m"
-                tools:visibility="visible" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/alarms"
+                    style="@style/PremiumHeaderTitle" />
+
+                <TextView
+                    android:id="@+id/tvNextAlarmTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    style="@style/PremiumHeaderSubtitle"
+                    android:visibility="gone"
+                    tools:text="Next alarm in 7h 30m"
+                    tools:visibility="visible" />
+            </LinearLayout>
 
         </LinearLayout>
 

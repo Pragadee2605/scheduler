@@ -140,4 +140,11 @@
     <string name="power_dismiss">Or press power button to dismiss</string>
     <string name="holiday_icon_desc">Holiday icon</string>
     <string name="upload_icon_desc">Upload calendar icon</string>
+    <string name="day_mon">Mon</string>
+    <string name="day_tue">Tue</string>
+    <string name="day_wed">Wed</string>
+    <string name="day_thu">Thu</string>
+    <string name="day_fri">Fri</string>
+    <string name="day_sat">Sat</string>
+    <string name="day_sun">Sun</string>
 </resources>
