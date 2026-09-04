@@ -35,6 +35,10 @@ data class Alarm(
 
     val fadeInDuration: Int = 10, // seconds
 
+    val snoozeDuration: Int = 5, // minutes
+
+    val ringDuration: Int = 5, // minutes
+
     val autoDisableOnWeekends: Boolean = true,
 
     val autoDisableOnHolidays: Boolean = true,

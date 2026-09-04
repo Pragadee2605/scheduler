@@ -38,6 +38,8 @@ class CreateAlarmActivity : AppCompatActivity() {
     private var selectedRingtoneUri: String = "default"
     private var selectedRingtoneName: String = "Default alarm sound"
     private var selectedDays = mutableSetOf<Int>()
+    private var selectedSnoozeMinutes = 5
+    private var selectedRingMinutes = 5
 
     private var editingAlarmId: Long? = null
 
@@ -60,6 +62,8 @@ class CreateAlarmActivity : AppCompatActivity() {
         const val EXTRA_AUTO_DISABLE_HOLIDAYS = "auto_disable_holidays"
         const val EXTRA_SOUND_URI = "sound_uri"
         const val EXTRA_SELECTED_DAYS = "selected_days"
+        const val EXTRA_SNOOZE_DURATION = "snooze_duration"
+        const val EXTRA_RING_DURATION = "ring_duration"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,6 +112,8 @@ class CreateAlarmActivity : AppCompatActivity() {
             }
             selectedRingtoneUri = intent.getStringExtra(EXTRA_SOUND_URI) ?: "default"
             selectedRingtoneName = getRingtoneName(selectedRingtoneUri)
+            selectedSnoozeMinutes = intent.getIntExtra(EXTRA_SNOOZE_DURATION, 5)
+            selectedRingMinutes = intent.getIntExtra(EXTRA_RING_DURATION, 5)
         }
     }
 
@@ -203,10 +209,28 @@ class CreateAlarmActivity : AppCompatActivity() {
             openAudioFilePicker()
         }
 
+        setupDurationSpinners()
+
         // Save button
         binding.btnSave.setOnClickListener {
             saveAlarm()
         }
+    }
+
+    private fun setupDurationSpinners() {
+        val snoozeOptions = listOf(1, 3, 5, 10, 15, 30)
+        val snoozeDisplay = snoozeOptions.map { "$it min" }
+        val snoozeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, snoozeDisplay)
+        snoozeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerSnooze.adapter = snoozeAdapter
+        binding.spinnerSnooze.setSelection(snoozeOptions.indexOf(selectedSnoozeMinutes).coerceAtLeast(0))
+
+        val ringOptions = listOf(1, 3, 5, 10, 15, 30)
+        val ringDisplay = ringOptions.map { "$it min" }
+        val ringAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ringDisplay)
+        ringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerRingDuration.adapter = ringAdapter
+        binding.spinnerRingDuration.setSelection(ringOptions.indexOf(selectedRingMinutes).coerceAtLeast(0))
     }
 
     private fun setupDayButtons() {
@@ -350,6 +374,12 @@ class CreateAlarmActivity : AppCompatActivity() {
             },
             label = binding.etLabel.text.toString(),
             soundUri = selectedRingtoneUri,
+            snoozeDuration = when(binding.spinnerSnooze.selectedItemPosition) {
+                0 -> 1; 1 -> 3; 2 -> 5; 3 -> 10; 4 -> 15; 5 -> 30; else -> 5
+            },
+            ringDuration = when(binding.spinnerRingDuration.selectedItemPosition) {
+                0 -> 1; 1 -> 3; 2 -> 5; 3 -> 10; 4 -> 15; 5 -> 30; else -> 5
+            },
             autoDisableOnWeekends = binding.switchAutoDisableWeekends.isChecked,
             autoDisableOnHolidays = binding.switchAutoDisableHolidays.isChecked
         )

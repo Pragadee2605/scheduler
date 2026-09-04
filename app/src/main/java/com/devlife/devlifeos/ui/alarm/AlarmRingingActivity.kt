@@ -29,6 +29,7 @@ import com.devlife.devlifeos.receiver.AlarmReceiver
 import com.devlife.devlifeos.service.AlarmService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -169,6 +170,23 @@ class AlarmRingingActivity : AppCompatActivity() {
 
         // Set alarm label
         tvAlarmLabel.text = getString(R.string.alarm)
+
+        // Load snooze duration for hint
+        if (alarmId != -1L) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val database = DevLifeDatabase.getDatabase(applicationContext)
+                val alarm = database.alarmDao().getAlarmById(alarmId)
+                withContext(Dispatchers.Main) {
+                    alarm?.let {
+                        val hint = "Tap circle to snooze (${it.snoozeDuration} min)"
+                        findViewById<TextView>(R.id.tvSnoozeHint).text = hint
+                        if (it.label.isNotEmpty()) {
+                            tvAlarmLabel.text = it.label
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setupGestures() {
@@ -294,11 +312,8 @@ class AlarmRingingActivity : AppCompatActivity() {
             }
             .start()
 
-        // Schedule alarm to ring again in 5 minutes
+        // Schedule alarm to ring again
         scheduleSnooze()
-
-        // Show toast feedback
-        Toast.makeText(this, "Alarm snoozed for 5 minutes", Toast.LENGTH_SHORT).show()
 
         btnSnooze.postDelayed({
             // Stop current alarm
@@ -307,25 +322,37 @@ class AlarmRingingActivity : AppCompatActivity() {
     }
 
     private fun scheduleSnooze() {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        lifecycleScope.launch(Dispatchers.IO) {
+            val database = DevLifeDatabase.getDatabase(applicationContext)
+            val alarmRepository = AlarmRepository(database.alarmDao())
+            val alarm = alarmRepository.getAlarmById(alarmId)
+            
+            val snoozeMinutes = alarm?.snoozeDuration ?: 5
 
-        val intent = Intent(this, AlarmReceiver::class.java).apply {
-            putExtra(AlarmService.EXTRA_ALARM_ID, alarmId)
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+            val intent = Intent(applicationContext, AlarmReceiver::class.java).apply {
+                putExtra(AlarmService.EXTRA_ALARM_ID, alarmId)
+            }
+
+            val pendingIntent = PendingIntent.getBroadcast(
+                applicationContext,
+                alarmId.toInt() + 10000, // Different request code to avoid conflicts
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
+            // Schedule alarm for snoozeMinutes from now
+            val snoozeTime = System.currentTimeMillis() + (snoozeMinutes * 60 * 1000L)
+
+            withContext(Dispatchers.Main) {
+                // Use setAlarmClock for reliable delivery
+                val alarmClockInfo = AlarmManager.AlarmClockInfo(snoozeTime, pendingIntent)
+                alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
+                
+                Toast.makeText(this@AlarmRingingActivity, "Alarm snoozed for $snoozeMinutes minutes", Toast.LENGTH_SHORT).show()
+            }
         }
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            alarmId.toInt() + 10000, // Different request code to avoid conflicts
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // Schedule alarm for 5 minutes from now
-        val snoozeTime = System.currentTimeMillis() + (5 * 60 * 1000) // 5 minutes
-
-        // Use setAlarmClock for reliable delivery
-        val alarmClockInfo = AlarmManager.AlarmClockInfo(snoozeTime, pendingIntent)
-        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
     }
 
     private fun dismissAlarm() {

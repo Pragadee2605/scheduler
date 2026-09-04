@@ -126,6 +126,8 @@ class AlarmListFragment : Fragment() {
             putExtra(CreateAlarmActivity.EXTRA_AUTO_DISABLE_HOLIDAYS, alarm.autoDisableOnHolidays)
             putExtra(CreateAlarmActivity.EXTRA_SOUND_URI, alarm.soundUri)
             putExtra(CreateAlarmActivity.EXTRA_SELECTED_DAYS, alarm.selectedDays.toIntArray())
+            putExtra(CreateAlarmActivity.EXTRA_SNOOZE_DURATION, alarm.snoozeDuration)
+            putExtra(CreateAlarmActivity.EXTRA_RING_DURATION, alarm.ringDuration)
         }
         startActivity(intent)
     }

@@ -22,8 +22,7 @@ class AlarmService : Service() {
     private var vibrator: Vibrator? = null
     private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private var currentAlarmId: Long = -1
-    private var playCount = 0
-    private val MAX_PLAYS = 2
+    private var timeoutJob: Job? = null
     
     private val activeAlarmIds = mutableSetOf<Long>()
 
@@ -104,30 +103,20 @@ class AlarmService : Service() {
                     if (isPlaying) stop()
                     release()
                 }
-                playCount = 0
+                
+                // Cancel previous timeout
+                timeoutJob?.cancel()
 
                 // Initialize MediaPlayer
                 val mp = MediaPlayer().apply {
                     setDataSource(applicationContext, soundUri)
-                    isLooping = false
+                    isLooping = true
                     setAudioAttributes(
                         AudioAttributes.Builder()
                             .setUsage(AudioAttributes.USAGE_ALARM)
                             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                             .build()
                     )
-
-                    setOnCompletionListener { mpListener ->
-                        playCount++
-                        if (playCount < MAX_PLAYS) {
-                            mpListener.start()
-                        } else {
-                            // Auto-dismiss after MAX_PLAYS
-                            serviceScope.launch(Dispatchers.Main) {
-                                handleAutoDismiss()
-                            }
-                        }
-                    }
 
                     // Start with volume 0 for fade-in
                     setVolume(0f, 0f)
@@ -138,6 +127,12 @@ class AlarmService : Service() {
 
                 // Fade in - pass the instance to avoid affecting future players
                 fadeIn(mp, alarm.fadeInDuration, alarm.volume)
+
+                // Set timeout for auto-dismiss
+                timeoutJob = serviceScope.launch {
+                    delay(alarm.ringDuration * 60 * 1000L)
+                    handleAutoDismiss()
+                }
 
                 // Vibrate if enabled
                 if (alarm.vibrate) {
@@ -195,6 +190,9 @@ class AlarmService : Service() {
     }
 
     fun stopAlarm() {
+        timeoutJob?.cancel()
+        timeoutJob = null
+
         mediaPlayer?.apply {
             try {
                 if (isPlaying) stop()
